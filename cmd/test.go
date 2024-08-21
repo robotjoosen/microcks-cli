@@ -44,7 +44,7 @@ func NewTestCommand() Command {
 func (c *testComamnd) Execute() {
 
 	// Parse subcommand args first.
-	if len(os.Args) < 4 {
+	if len(os.Args) < 5 {
 		fmt.Println("test command require <apiName:apiVersion> <testEndpoint> <runner> args")
 		os.Exit(1)
 	}

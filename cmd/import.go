@@ -38,7 +38,7 @@ func NewImportCommand() Command {
 func (c *importComamnd) Execute() {
 
 	// Parse subcommand args first.
-	if len(os.Args) < 2 {
+	if len(os.Args) < 3 {
 		fmt.Println("import command require <specificationFile1[:primary],specificationFile2[:primary]> args")
 		os.Exit(1)
 	}
