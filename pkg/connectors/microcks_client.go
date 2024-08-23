@@ -112,7 +112,7 @@ func NewMicrocksClient(apiURL string) MicrocksClient {
 
 func (c *microcksClient) GetKeycloakURL() (string, error) {
 	// Ensure we have a correct URL for retrieving Keycloal configuration.
-	rel := &url.URL{Path: "keycloak/config"}
+	rel := &url.URL{Path: "api/keycloak/config"}
 	u := c.APIURL.ResolveReference(rel)
 
 	req, err := http.NewRequest("GET", u.String(), nil)
@@ -162,7 +162,7 @@ func (c *microcksClient) SetOAuthToken(oauthToken string) {
 
 func (c *microcksClient) CreateTestResult(serviceID string, testEndpoint string, runnerType string, secretName string, timeout int64, filteredOperations string, operationsHeaders string, oAuth2Context string) (string, error) {
 	// Ensure we have a correct URL.
-	rel := &url.URL{Path: "tests"}
+	rel := &url.URL{Path: "api/tests"}
 	u := c.APIURL.ResolveReference(rel)
 
 	// Prepare an input string as body.
@@ -223,7 +223,7 @@ func (c *microcksClient) CreateTestResult(serviceID string, testEndpoint string,
 
 func (c *microcksClient) GetTestResult(testResultID string) (*TestResultSummary, error) {
 	// Ensure we have a correct URL.
-	rel := &url.URL{Path: "tests/" + testResultID}
+	rel := &url.URL{Path: "api/tests/" + testResultID}
 	u := c.APIURL.ResolveReference(rel)
 
 	req, err := http.NewRequest("GET", u.String(), nil)
@@ -286,7 +286,7 @@ func (c *microcksClient) UploadArtifact(specificationFilePath string, mainArtifa
 	}
 
 	// Ensure we have a correct URL.
-	rel := &url.URL{Path: "artifact/upload"}
+	rel := &url.URL{Path: "api/artifact/upload"}
 	u := c.APIURL.ResolveReference(rel)
 
 	req, err := http.NewRequest("POST", u.String(), body)
