@@ -32,16 +32,16 @@ var (
 	timeUnitChoices = map[string]bool{"milli": true, "sec": true, "min": true}
 )
 
-type testComamnd struct {
+type testCommand struct {
 }
 
 // NewTestCommand build a new TestCommand implementation
 func NewTestCommand() Command {
-	return new(testComamnd)
+	return new(testCommand)
 }
 
 // Execute implementation of testCommand structure
-func (c *testComamnd) Execute() {
+func (c *testCommand) Execute() {
 	var err error
 
 	// Parse subcommand args first.
