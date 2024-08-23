@@ -36,6 +36,7 @@ func NewImportCommand() Command {
 
 // Execute implementation of importComamnd structure
 func (c *importComamnd) Execute() {
+	var err error
 
 	// Parse subcommand args first.
 	if len(os.Args) < 3 {
@@ -49,7 +50,6 @@ func (c *importComamnd) Execute() {
 	importCmd := flag.NewFlagSet("import", flag.ExitOnError)
 
 	var microcksURL string
-	var keycloakURL string
 	var keycloakClientID string
 	var keycloakClientSecret string
 	var insecureTLS bool
@@ -89,29 +89,8 @@ func (c *importComamnd) Execute() {
 		config.Verbose = true
 	}
 
-	// Now we seems to be good ...
-	// First - retrieve the Keycloak URL from Microcks configuration.
 	mc := connectors.NewMicrocksClient(microcksURL)
-	keycloakURL, err := mc.GetKeycloakURL()
-	if err != nil {
-		fmt.Printf("Got error when invoking Microcks client retrieving config: %s", err)
-		os.Exit(1)
-	}
-
-	var oauthToken string = "unauthentifed-token"
-	if keycloakURL != "null" {
-		//  If Keycloak is enabled, retrieve an OAuth token using Keycloak Client.
-		kc := connectors.NewKeycloakClient(keycloakURL, keycloakClientID, keycloakClientSecret)
-
-		oauthToken, err = kc.ConnectAndGetToken()
-		if err != nil {
-			fmt.Printf("Got error when invoking Keycloack client: %s", err)
-			os.Exit(1)
-		}
-	}
-
-	// Then - for each specificationFile, upload the artifact on Microcks Server.
-	mc.SetOAuthToken(oauthToken)
+	mc.SetOAuthToken("unauthentifed-token")
 
 	sepSpecificationFiles := strings.Split(specificationFiles, ",")
 	for _, f := range sepSpecificationFiles {
