@@ -13,3 +13,6 @@
 
 # Ouput of the build-binaries script
 build/_output
+
+# IDEA files
+.idea
